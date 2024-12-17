@@ -1,0 +1,28 @@
+void swap(double *arr, size_t first, size_t second)
+{
+    double temp = arr[first];
+    arr[first] = arr[second];
+    arr[second] = temp;
+}
+
+void MainWindow::quickSort(size_t start, size_t end, double *arr)
+{
+    if (end <= start) {
+        return;
+    }
+    size_t pivot = end;
+    size_t j = start;
+    for (size_t i = start; i < end; i++) {
+        if (arr[i] < arr[pivot]) {
+            swap(arr, j, i);
+            ++j;
+        }
+    }
+
+    swap(arr, j, pivot);
+
+    //MainWindow::showArray(arr, arrSize);//Проміжні виводи
+
+    quickSort(start, j - 1, arr); // Ліва частина
+    quickSort(j + 1, end, arr); // Права частина
+}

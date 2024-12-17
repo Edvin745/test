@@ -1,0 +1,34 @@
+int findMax(int *arr, size_t size)
+{
+    int max = arr[0];
+    for (size_t i = 1; i < size; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
+
+void countingSort(int *arr, size_t size)
+{
+    int sizeTemp = findMax(arr, size) + 1; // Знайти максимальне значення та визначити розмір temp
+    int *temp = new int[sizeTemp]; // Створити тимчасовий масив для підрахунків
+    memset(temp, 0, sizeTemp * sizeof(int)); // Ініціалізуємо його нулями
+
+    // Підрахувати кількість появ кожного елемента
+    for (size_t i = 0; i < size; i++) {
+        temp[arr[i]]++;
+    }
+
+    // Відновити відсортований масив, використовуючи підрахунки
+    int k = 0;
+    for (int i = 0; i < sizeTemp; i++) {
+        while (temp[i] > 0) {
+            arr[k] = i;
+            k++;
+            temp[i]--;
+        }
+    }
+
+    delete[] temp; // Звільнити пам'ять для temp
+}
